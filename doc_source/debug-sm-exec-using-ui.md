@@ -23,35 +23,34 @@ The state machine used in this tutorial obtains the price of a set of fruits\. T
 1. Copy the following code for the Lambda function into the **Code source** area of the **GetListOfFruits** page\.
 
    ```
-   function getRandomSubarray(arr, size) {
-       var shuffled = arr.slice(0), i = arr.length, temp, index;
-       while (i--) {
-           index = Math.floor((i + 1) * Math.random());
-           temp = shuffled[index];
-           shuffled[index] = shuffled[i];
-           shuffled[i] = temp;
-       }
-       return shuffled.slice(0, size);
+   const getRandomSubarray = (arr, size) => {
+      var shuffled = arr.slice(0), i = arr.length, temp, index;
+      while (i--) {
+         index = Math.floor((i + 1) * Math.random());
+         temp = shuffled[index];
+         shuffled[index] = shuffled[i];
+         shuffled[i] = temp;
+      }
+      return shuffled.slice(0, size);
    }
    
-   exports.handler = async function(event, context) {
-       
-       const fruits = ['Abiu','Açaí','Acerola','Ackee','African cucumber','Apple','Apricot','Avocado','Banana','Bilberry','Blackberry','Blackcurrant','Jostaberry'];
-   
-       
-        const errorChance = 45;
-       
-       const waitTime = Math.floor( 100 * Math.random() );
-   
-       await new Promise( r => setTimeout(() => r(), waitTime));
-   
-       const num = Math.floor( 100 * Math.random() );
-       // const num = 51;
-        if (num <= errorChance) {
-            throw(new Error('Error'));
-        }
-   
-       return getRandomSubarray(fruits, 4);
+   export const handler = async (event, context) => {
+    
+    const fruits = ['Abiu','Açaí','Acerola','Ackee','African  cucumber','Apple','Apricot','Avocado','Banana','Bilberry','Blackberry','Blackcurrant','Jostaberry'];
+
+    const errorChance = 45;
+    
+    const waitTime = Math.floor( 100 * Math.random() );
+
+    await new Promise( r => setTimeout(() => r(), waitTime));
+
+    const num = Math.floor( 100 * Math.random() );
+    // const num = 51;
+     if (num <= errorChance) {
+         throw(new Error('Error'));
+     }
+
+    return getRandomSubarray(fruits, 4);
    };
    ```
 
